@@ -1,6 +1,5 @@
 from flask import Flask, request, jsonify
 from handle_automate import HandleAutomation
-import json
 
 app = Flask(__name__)
 
@@ -11,7 +10,7 @@ def gdrive_links():
     auto = HandleAutomation()
     gdrive_url = auto.extract_urls(subject=data)
 
-    return jsonify(gdrive_urlss)
+    return jsonify(gdrive_url)
 
 
 if __name__ == "__main__":
