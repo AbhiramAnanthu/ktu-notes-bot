@@ -19,7 +19,12 @@ class HandleAutomation:
                 "safebrowsing.enabled": True,
             },
         )
+        chrome_options.add_argument("--headless")
+        chrome_options.add_argument("--no-sandbox")
+        chrome_options.add_argument("--disable-dev-shm-usage")
+
         s = Service(ChromeDriverManager().install())
+        print(s)
         self.driver = webdriver.Chrome(options=chrome_options, service=s)
 
     def extract_urls(self, subject: dict) -> dict:
