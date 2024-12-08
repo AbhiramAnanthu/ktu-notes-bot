@@ -1,6 +1,8 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 import re
 import logging
 
@@ -17,7 +19,8 @@ class HandleAutomation:
                 "safebrowsing.enabled": True,
             },
         )
-        self.driver = webdriver.Chrome(options=chrome_options)
+        s = Service(ChromeDriverManager().install())
+        self.driver = webdriver.Chrome(options=chrome_options, service=s)
 
     def extract_urls(self, subject: dict) -> dict:
         url = self._create_url(subject)
