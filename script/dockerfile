@@ -1,0 +1,26 @@
+FROM python:3.9-alpine
+
+# Set the working directory
+WORKDIR /app
+
+# Copy application code
+COPY . /app
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Install required packages and Google Chrome
+RUN apk update && apk add --no-cache \
+    bash \
+    curl \
+    wget \
+    unzip \
+    chromium \
+    chromium-chromedriver \
+    && rm -rf /var/cache/apk/*
+
+# Expose the application port
+EXPOSE 5000
+
+# Define the command to run the app using Gunicorn
+CMD ["gunicorn","-w","4","-b","0.0.0.0:5000","app:app"]
