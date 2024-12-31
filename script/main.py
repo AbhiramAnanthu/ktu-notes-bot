@@ -2,7 +2,7 @@ import asyncio
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
-from selenium.common.exceptions import NoSuchElementException, WebDriverException
+from selenium.common.exceptions import NoSuchElementException
 
 URL = "https://www.ktunotes.in/ktu-2019-new-scheme-notes/"
 
@@ -16,15 +16,8 @@ options.add_argument("--no-sandbox")
 options.add_argument("--disable-pop-blocking")
 
 
+driver = webdriver.Chrome(options=options)
 
-try:
-    driver = webdriver.Chrome(options=options)
-except WebDriverException as e:
-    print(e)
-except ConnectionRefusedError as e:
-    print(e)
-except Exception as e:
-    print(f"[ERROR] {e}")
 
 async def extract_gdrive_url(sub_name: str, sem_num: str, subject: str) -> list[str]:
     driver.get(URL)
